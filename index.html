@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kali Linux Boot Simulation</title>
+  <title coming soon</title>
+
+  <meta property="og:title" content="Coming soon…" />
+  <meta property="og:description" content="Launching soon on leakedbypass.sbs" />
+  <meta property="og:url" content="https://leakedbypass.sbs" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://files.catbox.moe/bd776k.gif" />
+  <meta name="theme-color" content="#000000" />
+
   <style>
     html, body {
       margin: 0;
@@ -158,7 +166,7 @@
     }
 
     function showLineRandomDelay(text, callback) {
-      const delay = 50 + Math.random() * 200;
+      const delay = 300 + Math.random() * 700;
       setTimeout(() => {
         newLine(text);
         callback();
@@ -209,7 +217,6 @@
                 showBootLines();
               });
             } else {
-              // Instantly hide terminal and show final screen
               terminal.style.display = "none";
               finalScreen.style.display = "block";
             }
