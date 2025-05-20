@@ -1,193 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>coming soon</title>
-<style>
-  html, body {
-    margin: 0; padding: 0; height: 100%;
-    background-color: black;
-    color: white;
-    font-family: monospace;
-    font-size: 14px;
-    overflow: hidden;
-  }
-  #terminal {
-    background: black;
-    color: white;
-    width: 100vw;
-    height: 100vh;
-    padding: 1rem;
-    box-sizing: border-box;
-    white-space: pre-wrap;
-    overflow-y: auto;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-  #final-screen {
-    display: none;
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-  #final-screen h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  #final-screen a {
-    display: inline-block;
-    background-color: #5865F2;
-    color: white;
-    padding: 12px 24px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-  }
-  #final-screen a:hover {
-    background-color: #4752c4;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bypass</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      background-color: #000;
+      position: relative;
+      height: 100vh;
+    }
+
+    .bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: linear-gradient(-45deg, #000, #050505, #0a0a0a, #111);
+      background-size: 400% 400%;
+      animation: gradientBG 7s ease infinite;
+    }
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.3s ease-out;
+      cursor: pointer;
+    }
+    .intro-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .intro-text {
+      color: #fff;
+      font-size: 32px;
+      user-select: none;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 15px rgba(88, 101, 242, 0.7);
+      font-weight: 500;
+    }
+    .intro-text:hover {
+      text-shadow: 0 0 25px rgba(88, 101, 242, 1);
+      transform: scale(1.05);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-in forwards;
+      animation-delay: 0.5s;
+      min-height: 100vh;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .card {
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .profile-card {
+      position: relative;
+      width: 300px;
+      padding-bottom: 20px;
+      margin-top: 40px;
+    }
+    .profile-card .banner-gif {
+      width: 100%;
+      height: 100px;
+      background: url('https://files.catbox.moe/oirclw.gif')
+        center center / cover no-repeat;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    .profile-card .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #111;
+      object-fit: cover;
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      z-index: 1;
+    }
+    .profile-card .profile-info {
+      margin-top: 110px;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .profile-card h1 {
+      margin: 10px 0 5px;
+      font-weight: 600;
+      font-size: 26px;
+      color: #fff;
+    }
+    .profile-card p {
+      margin: 0 0 15px;
+      font-weight: 300;
+      color: #bbb;
+      font-size: 14px;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .social-icon {
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.1));
+      transition: transform 0.3s ease;
+    }
+    .social-icon:hover {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 8px rgba(88, 101, 242, 0.7));
+    }
+
+    .embed-card {
+      width: 300px;
+    }
+    .github-stats {
+      border: none !important;
+      width: 100%;
+      height: 140px;
+    }
+
+    #rainCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #5865F2;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4752c4;
+    }
+  </style>
 </head>
 <body>
-<div id="terminal"></div>
-<div id="final-screen">
-  <h1>Coming soon</h1>
-  <a href="https://discord.gg/nicestore" target="_blank" rel="noopener noreferrer">Join Our Discord</a>
-</div>
-<script>
-  const terminal = document.getElementById('terminal');
-  const finalScreen = document.getElementById('final-screen');
+  <div class="bg"></div>
+  <canvas id="rainCanvas"></canvas>
 
-  const bootLines = [
-    "[  OK  ] Created slice system-systemd\\x2dfsck.slice.",
-    "[  OK  ] Found device /dev/mapper/kali--vg-root.",
-    "[  OK  ] Activating swap /dev/dm-1...",
-    "[  OK  ] Activated swap /dev/dm-1.",
-    "[  OK  ] Mounted /boot/efi.",
-    "[  OK  ] Mounted /home.",
-    "[  OK  ] Reached target Swap.",
-    "[  OK  ] Started File System Check Daemon to report status.",
-    "[  OK  ] Reached target Local File Systems.",
-    "[  OK  ] Started udev Coldplug all Devices.",
-    "[  OK  ] Started Load Kernel Modules.",
-    "[  OK  ] Starting Apply Kernel Variables...",
-    "[  OK  ] Started Apply Kernel Variables.",
-    "[  OK  ] Starting Create Static Device Nodes in /dev...",
-    "[  OK  ] Started Create Static Device Nodes in /dev.",
-    "[  OK  ] Starting udev Kernel Device Manager...",
-    "[  OK  ] Started udev Kernel Device Manager.",
-    "[  OK  ] Starting Show Plymouth Boot Screen...",
-    "[  OK  ] Reached target Local Encrypted Volumes.",
-    "[  OK  ] Started Forward Password Requests to Wall Directory Watch.",
-    "[  OK  ] Starting Network Service...",
-    "[  OK  ] Started Network Service.",
-    "[  OK  ] Starting OpenSSH Daemon...",
-    "[  OK  ] Started OpenSSH Daemon.",
-    "[  OK  ] Starting Network Manager Script Dispatcher Service...",
-    "[  OK  ] Started Network Manager Script Dispatcher Service.",
-    "[  OK  ] Started Daily Cleanup of Temporary Directories.",
-    "[  OK  ] Started D-Bus System Message Bus.",
-    "[  OK  ] Started Authorization Manager.",
-    "[  OK  ] Started Accounts Service.",
-    "[  OK  ] Started Modem Manager.",
-    "[  OK  ] Started Bluetooth service.",
-    "[  OK  ] Started CUPS Scheduler.",
-    "[  OK  ] Started GNOME Display Manager.",
-    "[  OK  ] Reached target Graphical Interface.",
-    "[  OK  ] Started Update UTMP about System Boot/Shutdown.",
-    "[  OK  ] Started Clean up unused kernel modules.",
-    "[  OK  ] Started Trigger Flushing of Journal to Persistent Storage.",
-    "[  OK  ] Started Load AppArmor profiles.",
-    "[  OK  ] Reached target Multi-User System.",
-    "[  OK  ] Starting Light Display Manager...",
-    "[  OK  ] Started Light Display Manager.",
-    "[  OK  ] Started Hostname Service.",
-    "[  OK  ] Started VirtualBox kernel modules.",
-    "[  OK  ] Started Avahi mDNS/DNS-SD Stack.",
-    "Last login: Tue May 20 14:33:55 2025 from 192.168.1.100",
-    "",
-    "Welcome to Kali GNU/Linux Rolling (2025.1) - Kernel 5.10.0-kali-amd64",
-    " * Documentation:  https://www.kali.org/docs/",
-    " * Management:     https://www.kali.org/tools/",
-    " * Support:        https://forums.kali.org/",
-    "",
-    "sysadmin@kali:~$ "
-  ];
+  <div class="intro-screen" id="introScreen" aria-label="Intro Screen - Click anywhere to start">
+    <div class="intro-text" id="introText">Click Here</div>
+  </div>
 
-  function newLine(text = "") {
-    const line = document.createElement("div");
-    line.textContent = text;
-    terminal.appendChild(line);
-    terminal.scrollTop = terminal.scrollHeight;
-    return line;
-  }
+  <div class="container" id="mainContent">
+    <div class="card profile-card" aria-label="User Profile Card">
+      <div class="banner-gif" aria-hidden="true"></div>
+      <img
+        src="https://files.catbox.moe/bd776k.gif"
+        alt="Profile Picture of Bypass"
+        class="profile-pic"
+      />
+      <div class="profile-info">
+        <h1>Bypass</h1>
+        <p>Developer & Seller</p>
+        <div class="social-icons">
+          <a href="https://discord.gg/nicestore" target="_blank" rel="noopener noreferrer">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png"
+              alt="Discord"
+              class="social-icon"
+            />
+          </a>
+          <a href="https://youtube.com/@leakedbypass" target="_blank" rel="noopener noreferrer">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
+              alt="YouTube"
+              class="social-icon"
+            />
+          </a>
+          <a href="https://github.com/godbypass" target="_blank" rel="noopener noreferrer">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/733/733609.png"
+              alt="GitHub"
+              class="social-icon"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
 
-  function showLineRandomDelay(text, callback) {
-    const delay = 500 + Math.random() * 1000;
-    setTimeout(() => {
-      newLine(text);
-      callback();
-    }, delay);
-  }
+    <div class="card embed-card">
+      <img
+        src="https://github-readme-stats.vercel.app/api/top-langs/?username=godbypass&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact"
+        alt="GitHub Language Stats"
+        class="github-stats"
+      />
+    </div>
+  </div>
 
-  function typeText(lineEl, text, perCharDelay, callback) {
-    let i = 0;
-    function typeChar() {
-      if (i < text.length) {
-        lineEl.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeChar, perCharDelay);
-      } else {
-        callback();
+  <script>
+    ;(() => {
+      const canvas = document.getElementById('rainCanvas');
+      const ctx = canvas.getContext('2d');
+      let width, height, raindrops = [];
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
       }
-    }
-    typeChar();
-  }
-
-  function typePasswordDots(lineEl, count, perCharDelay, callback) {
-    let i = 0;
-    function typeDot() {
-      if (i < count) {
-        lineEl.textContent += "•";
-        i++;
-        setTimeout(typeDot, perCharDelay);
-      } else {
-        callback();
+      function createRaindrops() {
+        raindrops = [];
+        const count = Math.floor(width / 2);
+        for (let i = 0; i < count; i++) {
+          raindrops.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            length: 10 + Math.random() * 15,
+            velocityY: 4 + Math.random() * 4,
+            opacity: 0.1 + Math.random() * 0.4,
+            width: 1
+          });
+        }
       }
-    }
-    typeDot();
-  }
-
-  function bootSequence() {
-    newLine("Kali GNU/Linux Rolling kali tty1");
-    newLine("");
-
-    const loginLine = newLine("login: ");
-    typeText(loginLine, "sysadmin", 120, () => {
-      const passLine = newLine("Password: ");
-      typePasswordDots(passLine, 6, 180, () => {
-        let index = 0;
-        function showBootLines() {
-          if (index < bootLines.length) {
-            showLineRandomDelay(bootLines[index], () => {
-              index++;
-              showBootLines();
-            });
-          } else {
-            terminal.style.display = "none";
-            finalScreen.style.display = "block";
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        for (let drop of raindrops) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(174,194,224,${drop.opacity})`;
+          ctx.lineWidth = drop.width;
+          ctx.moveTo(drop.x, drop.y);
+          ctx.lineTo(drop.x, drop.y + drop.length);
+          ctx.stroke();
+        }
+      }
+      function update() {
+        for (let drop of raindrops) {
+          drop.y += drop.velocityY;
+          if (drop.y > height) {
+            drop.y = -drop.length;
+            drop.x = Math.random() * width;
           }
         }
-        showBootLines();
+      }
+      function animate() {
+        draw();
+        update();
+        requestAnimationFrame(animate);
+      }
+      window.addEventListener('resize', () => {
+        resize();
+        createRaindrops();
       });
-    });
-  }
+      resize();
+      createRaindrops();
+      animate();
+    })();
 
-  bootSequence();
-</script>
+    document.getElementById('introScreen').addEventListener('click', () => {
+      const audio = new Audio('https://files.catbox.moe/u1lg9z.mp3');
+      audio.volume = 0.5;
+      audio.play().catch(() => {});
+      document.getElementById('introScreen').classList.add('fade-out');
+    });
+
+    if (!('scrollBehavior' in document.documentElement.style)) {
+      document.addEventListener('DOMContentLoaded', () => {
+        document
+          .querySelectorAll('a[href^="#"]')
+          .forEach(link =>
+            link.addEventListener('click', e => {
+              e.preventDefault();
+              document
+                .querySelector(link.getAttribute('href'))
+                .scrollIntoView({ behavior: 'smooth', block: 'start' });
+            })
+          );
+      });
+    }
+  </script>
 </body>
 </html>
