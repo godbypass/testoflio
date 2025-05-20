@@ -1,232 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title coming soon</title>
-
-  <meta property="og:title" content="Coming soon…" />
-  <meta property="og:description" content="Launching soon on leakedbypass.sbs" />
-  <meta property="og:url" content="https://leakedbypass.sbs" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://files.catbox.moe/bd776k.gif" />
-  <meta name="theme-color" content="#000000" />
-
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      font-family: monospace;
-      font-size: 14px;
-      color: white;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    #terminal {
-      background: black;
-      color: white;
-      width: 100vw;
-      padding: 1rem;
-      box-sizing: border-box;
-      white-space: pre-wrap;
-      overflow-y: auto;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      background-color: white;
-      animation: blink 1s steps(2, start) infinite;
-      vertical-align: bottom;
-    }
-
-    @keyframes blink {
-      50% { background-color: transparent; }
-    }
-
-    #final-screen {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    #final-screen h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-
-    #final-screen a {
-      display: inline-block;
-      background-color: #5865F2;
-      color: white;
-      padding: 12px 24px;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
-    }
-
-    #final-screen a:hover {
-      background-color: #4752c4;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>coming soon</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background-color: black;
+    color: white;
+    font-family: monospace;
+    font-size: 14px;
+    overflow: hidden;
+  }
+  #terminal {
+    background: black;
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  #final-screen {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  #final-screen h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  #final-screen a {
+    display: inline-block;
+    background-color: #5865F2;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+  #final-screen a:hover {
+    background-color: #4752c4;
+  }
+</style>
 </head>
 <body>
-  <div id="terminal"></div>
+<div id="terminal"></div>
+<div id="final-screen">
+  <h1>Coming soon</h1>
+  <a href="https://discord.gg/nicestore" target="_blank" rel="noopener noreferrer">Join Our Discord</a>
+</div>
+<script>
+  const terminal = document.getElementById('terminal');
+  const finalScreen = document.getElementById('final-screen');
 
-  <div id="final-screen">
-    <h1>Coming soon</h1>
-    <a href="https://discord.gg/nicestore" target="_blank">Join Our Discord</a>
-  </div>
+  const bootLines = [
+    "[  OK  ] Created slice system-systemd\\x2dfsck.slice.",
+    "[  OK  ] Found device /dev/mapper/kali--vg-root.",
+    "[  OK  ] Activating swap /dev/dm-1...",
+    "[  OK  ] Activated swap /dev/dm-1.",
+    "[  OK  ] Mounted /boot/efi.",
+    "[  OK  ] Mounted /home.",
+    "[  OK  ] Reached target Swap.",
+    "[  OK  ] Started File System Check Daemon to report status.",
+    "[  OK  ] Reached target Local File Systems.",
+    "[  OK  ] Started udev Coldplug all Devices.",
+    "[  OK  ] Started Load Kernel Modules.",
+    "[  OK  ] Starting Apply Kernel Variables...",
+    "[  OK  ] Started Apply Kernel Variables.",
+    "[  OK  ] Starting Create Static Device Nodes in /dev...",
+    "[  OK  ] Started Create Static Device Nodes in /dev.",
+    "[  OK  ] Starting udev Kernel Device Manager...",
+    "[  OK  ] Started udev Kernel Device Manager.",
+    "[  OK  ] Starting Show Plymouth Boot Screen...",
+    "[  OK  ] Reached target Local Encrypted Volumes.",
+    "[  OK  ] Started Forward Password Requests to Wall Directory Watch.",
+    "[  OK  ] Starting Network Service...",
+    "[  OK  ] Started Network Service.",
+    "[  OK  ] Starting OpenSSH Daemon...",
+    "[  OK  ] Started OpenSSH Daemon.",
+    "[  OK  ] Starting Network Manager Script Dispatcher Service...",
+    "[  OK  ] Started Network Manager Script Dispatcher Service.",
+    "[  OK  ] Started Daily Cleanup of Temporary Directories.",
+    "[  OK  ] Started D-Bus System Message Bus.",
+    "[  OK  ] Started Authorization Manager.",
+    "[  OK  ] Started Accounts Service.",
+    "[  OK  ] Started Modem Manager.",
+    "[  OK  ] Started Bluetooth service.",
+    "[  OK  ] Started CUPS Scheduler.",
+    "[  OK  ] Started GNOME Display Manager.",
+    "[  OK  ] Reached target Graphical Interface.",
+    "[  OK  ] Started Update UTMP about System Boot/Shutdown.",
+    "[  OK  ] Started Clean up unused kernel modules.",
+    "[  OK  ] Started Trigger Flushing of Journal to Persistent Storage.",
+    "[  OK  ] Started Load AppArmor profiles.",
+    "[  OK  ] Reached target Multi-User System.",
+    "[  OK  ] Starting Light Display Manager...",
+    "[  OK  ] Started Light Display Manager.",
+    "[  OK  ] Started Hostname Service.",
+    "[  OK  ] Started VirtualBox kernel modules.",
+    "[  OK  ] Started Avahi mDNS/DNS-SD Stack.",
+    "Last login: Tue May 20 14:33:55 2025 from 192.168.1.100",
+    "",
+    "Welcome to Kali GNU/Linux Rolling (2025.1) - Kernel 5.10.0-kali-amd64",
+    " * Documentation:  https://www.kali.org/docs/",
+    " * Management:     https://www.kali.org/tools/",
+    " * Support:        https://forums.kali.org/",
+    "",
+    "sysadmin@kali:~$ "
+  ];
 
-  <script>
-    function setTerminalHeight() {
-      const vh = window.innerHeight;
-      document.getElementById('terminal').style.height = `${vh}px`;
-    }
-    window.addEventListener('resize', setTerminalHeight);
-    window.addEventListener('orientationchange', setTerminalHeight);
-    setTerminalHeight();
-  </script>
+  function newLine(text = "") {
+    const line = document.createElement("div");
+    line.textContent = text;
+    terminal.appendChild(line);
+    terminal.scrollTop = terminal.scrollHeight;
+    return line;
+  }
 
-  <script>
-    const terminal = document.getElementById('terminal');
-    const finalScreen = document.getElementById('final-screen');
+  function showLineRandomDelay(text, callback) {
+    const delay = 500 + Math.random() * 1000;
+    setTimeout(() => {
+      newLine(text);
+      callback();
+    }, delay);
+  }
 
-    const bootLines = [
-      "[  OK  ] Created slice system-systemd\\x2dfsck.slice.",
-      "[  OK  ] Found device /dev/mapper/kali--vg-root.",
-      "[  OK  ] Activating swap /dev/dm-1...",
-      "[  OK  ] Activated swap /dev/dm-1.",
-      "[  OK  ] Mounted /boot/efi.",
-      "[  OK  ] Mounted /home.",
-      "[  OK  ] Reached target Swap.",
-      "[  OK  ] Started File System Check Daemon to report status.",
-      "[  OK  ] Reached target Local File Systems.",
-      "[  OK  ] Started udev Coldplug all Devices.",
-      "[  OK  ] Started Load Kernel Modules.",
-      "[  OK  ] Starting Apply Kernel Variables...",
-      "[  OK  ] Started Apply Kernel Variables.",
-      "[  OK  ] Starting Create Static Device Nodes in /dev...",
-      "[  OK  ] Started Create Static Device Nodes in /dev.",
-      "[  OK  ] Starting udev Kernel Device Manager...",
-      "[  OK  ] Started udev Kernel Device Manager.",
-      "[  OK  ] Starting Show Plymouth Boot Screen...",
-      "[  OK  ] Reached target Local Encrypted Volumes.",
-      "[  OK  ] Started Forward Password Requests to Wall Directory Watch.",
-      "[  OK  ] Starting Network Service...",
-      "[  OK  ] Started Network Service.",
-      "[  OK  ] Starting OpenSSH Daemon...",
-      "[  OK  ] Started OpenSSH Daemon.",
-      "[  OK  ] Starting Network Manager Script Dispatcher Service...",
-      "[  OK  ] Started Network Manager Script Dispatcher Service.",
-      "[  OK  ] Started Daily Cleanup of Temporary Directories.",
-      "[  OK  ] Started D-Bus System Message Bus.",
-      "[  OK  ] Started Authorization Manager.",
-      "[  OK  ] Started Accounts Service.",
-      "[  OK  ] Started Modem Manager.",
-      "[  OK  ] Started Bluetooth service.",
-      "[  OK  ] Started CUPS Scheduler.",
-      "[  OK  ] Started GNOME Display Manager.",
-      "[  OK  ] Reached target Graphical Interface.",
-      "[  OK  ] Started Update UTMP about System Boot/Shutdown.",
-      "[  OK  ] Started Clean up unused kernel modules.",
-      "[  OK  ] Started Trigger Flushing of Journal to Persistent Storage.",
-      "[  OK  ] Started Load AppArmor profiles.",
-      "[  OK  ] Reached target Multi-User System.",
-      "[  OK  ] Starting Light Display Manager...",
-      "[  OK  ] Started Light Display Manager.",
-      "[  OK  ] Started Hostname Service.",
-      "[  OK  ] Started VirtualBox kernel modules.",
-      "[  OK  ] Started Avahi mDNS/DNS-SD Stack.",
-      "Last login: Tue May 20 14:33:55 2025 from 192.168.1.100",
-      "",
-      "Welcome to Kali GNU/Linux Rolling (2025.1) - Kernel 5.10.0-kali-amd64",
-      " * Documentation:  https://www.kali.org/docs/",
-      " * Management:     https://www.kali.org/tools/",
-      " * Support:        https://forums.kali.org/",
-      "",
-      "sysadmin@kali:~$ "
-    ];
-
-    function newLine(text = "") {
-      const line = document.createElement("div");
-      line.textContent = text;
-      terminal.appendChild(line);
-      terminal.scrollTop = terminal.scrollHeight;
-      return line;
-    }
-
-    function showLineRandomDelay(text, callback) {
-      const delay = 300 + Math.random() * 700;
-      setTimeout(() => {
-        newLine(text);
+  function typeText(lineEl, text, perCharDelay, callback) {
+    let i = 0;
+    function typeChar() {
+      if (i < text.length) {
+        lineEl.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeChar, perCharDelay);
+      } else {
         callback();
-      }, delay);
-    }
-
-    function typeText(lineEl, text, perCharDelay, callback) {
-      let i = 0;
-      function typeChar() {
-        if (i < text.length) {
-          lineEl.textContent += text.charAt(i);
-          i++;
-          setTimeout(typeChar, perCharDelay);
-        } else {
-          callback();
-        }
       }
-      typeChar();
     }
+    typeChar();
+  }
 
-    function typePasswordDots(lineEl, count, perCharDelay, callback) {
-      let i = 0;
-      function typeDot() {
-        if (i < count) {
-          lineEl.textContent += "•";
-          i++;
-          setTimeout(typeDot, perCharDelay);
-        } else {
-          callback();
-        }
+  function typePasswordDots(lineEl, count, perCharDelay, callback) {
+    let i = 0;
+    function typeDot() {
+      if (i < count) {
+        lineEl.textContent += "•";
+        i++;
+        setTimeout(typeDot, perCharDelay);
+      } else {
+        callback();
       }
-      typeDot();
     }
+    typeDot();
+  }
 
-    function bootSequence() {
-      newLine("Kali GNU/Linux Rolling kali tty1");
-      newLine("");
+  function bootSequence() {
+    newLine("Kali GNU/Linux Rolling kali tty1");
+    newLine("");
 
-      const loginLine = newLine("login: ");
-      typeText(loginLine, "sysadmin", 120, () => {
-        const passLine = newLine("Password: ");
-        typePasswordDots(passLine, 6, 180, () => {
-          let index = 0;
-          function showBootLines() {
-            if (index < bootLines.length) {
-              showLineRandomDelay(bootLines[index], () => {
-                index++;
-                showBootLines();
-              });
-            } else {
-              terminal.style.display = "none";
-              finalScreen.style.display = "block";
-            }
+    const loginLine = newLine("login: ");
+    typeText(loginLine, "sysadmin", 120, () => {
+      const passLine = newLine("Password: ");
+      typePasswordDots(passLine, 6, 180, () => {
+        let index = 0;
+        function showBootLines() {
+          if (index < bootLines.length) {
+            showLineRandomDelay(bootLines[index], () => {
+              index++;
+              showBootLines();
+            });
+          } else {
+            terminal.style.display = "none";
+            finalScreen.style.display = "block";
           }
-          showBootLines();
-        });
+        }
+        showBootLines();
       });
-    }
+    });
+  }
 
-    bootSequence();
-  </script>
+  bootSequence();
+</script>
 </body>
 </html>
